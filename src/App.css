@@ -1,3 +1,5 @@
 body {
   font-family: 'Open Sans Condensed';
+  min-width: 350px;
+  box-sizing: border-box;
 }

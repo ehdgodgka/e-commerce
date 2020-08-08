@@ -10,9 +10,9 @@ import SignInAndSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up.com
 import Header from './components/header/header.component';
 
 import { auth, createUserProfileDocument } from './utils/firebase.utils';
-import { setCurrentUser } from './redux/user/uaer.action';
+import { setCurrentUser } from './redux/user/user.action';
 
-function App({ setCurrentUser }) {
+function App({ currentUser, setCurrentUser }) {
   useEffect(() => {
     const unscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
@@ -20,9 +20,8 @@ function App({ setCurrentUser }) {
         userRef.onSnapshot((snapshot) => {
           setCurrentUser({ id: snapshot.id, ...snapshot.data() });
         });
-      } else {
-        setCurrentUser(null);
       }
+      setCurrentUser(userAuth);
     });
     return unscribeFromAuth;
   }, []);
@@ -33,14 +32,19 @@ function App({ setCurrentUser }) {
       <Switch>
         <Route exact path='/' component={HomePage} />
         <Route path='/shop' component={ShopPage} />
-        <Route path='/signin' component={SignInAndSignUp} />
-        <Redirect to='/' />
+        <Route
+          path='/signin'
+          render={() => (currentUser ? <Redirect to='/' /> : <SignInAndSignUp />)}
+        />
       </Switch>
     </div>
   );
 }
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
+});
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user))
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

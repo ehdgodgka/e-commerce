@@ -2,14 +2,22 @@ import React, { useState } from 'react';
 import './sigin-in.styles.scss';
 import FormInput from '../../components/form-input/form-input.component';
 import CustomButton from '../../components/custom-button/custom-button.component';
-import { signInWithGoogle } from '../../utils/firebase.utils';
+import { auth, signInWithGoogle } from '../../utils/firebase.utils';
 const SignIn = () => {
   const [signInText, setSignInText] = useState({ email: '', password: '' });
   const handleChange = (input) => {
     setSignInText({ ...signInText, ...input });
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    const { email, password } = signInText;
+
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      setSignInText({ email: '', password: '' });
+    } catch (error) {
+      console.log('login error', error);
+    }
   };
 
   return (
@@ -26,7 +34,7 @@ const SignIn = () => {
         />
         <FormInput
           label='password'
-          type='email'
+          type='password'
           maxLength={15}
           handleChange={handleChange}
           value={signInText.password}

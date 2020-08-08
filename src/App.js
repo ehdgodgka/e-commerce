@@ -10,7 +10,7 @@ import Header from './components/header/header.component';
 import { auth, createUserProfileDocument } from './utils/firebase.utils';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState(null);
   useEffect(() => {
     const unscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
@@ -18,6 +18,8 @@ function App() {
         userRef.onSnapshot((snapshot) => {
           setCurrentUser({ id: snapshot.id, ...snapshot.data() });
         });
+      } else {
+        setCurrentUser(null);
       }
     });
     return unscribeFromAuth;

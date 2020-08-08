@@ -31,7 +31,7 @@ const SignIn = () => {
           handleChange={handleChange}
           value={signInText.password}
         />
-        <div className='buttons'>
+        <div className='buttons-wrapper'>
           <CustomButton type='submit'> sign in</CustomButton>
           <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
             Sign in with Google

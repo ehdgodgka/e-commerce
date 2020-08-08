@@ -1,16 +1,27 @@
 .sign-in {
-  padding-left: 50px;
-  width: fit-content;
+  border: 1px solid rgb(113, 192, 223);
+  box-shadow: -5px 5px 3px rgb(182, 240, 255);
+
+  border-radius: 3px;
+  padding: 50px;
+  margin: 0 30px 50px ;
+
+  flex: 1;
+  max-width: 450px;
+  min-width: 350px;
+
   display: flex;
   flex-direction: column;
   .title {
-    margin: 30px 0;
+    margin: 10px 0;
   }
-  .buttons {
+  .buttons-wrapper {
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    justify-content: center;
     button {
+      flex: 1;
       overflow: wrap;
     }
   }

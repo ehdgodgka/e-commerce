@@ -1,9 +1,11 @@
 .collection-item {
-  width: 22%;
+  flex: 1;
+  height: 400px;
   display: flex;
   flex-direction: column;
-  height: 350px;
   align-items: center;
+  position: relative;
+  margin: 0 20px;
 
   .image {
     width: 100%;
@@ -27,6 +29,42 @@
 
     .price {
       width: 10%;
+    }
+  }
+  .custom-button {
+    position: absolute;
+    bottom: 25px;
+    right: 0px;
+    width: 50%;
+    height: 40px;
+    border: none;
+    border-top-left-radius: 100px;
+    opacity: 70%;
+    display: none;
+    white-space: nowrap;
+
+    svg {
+      margin-right: 10px;
+    }
+  }
+  &:hover {
+    .image {
+      opacity: 0.8;
+    }
+
+    .custom-button {
+      opacity: 0.85;
+      display: flex;
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .collection-item {
+    &:hover {
+      .custom-button {
+        width: 90%;
+      }
     }
   }
 }
